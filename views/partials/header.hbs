@@ -8,13 +8,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Brand</a>
+      <a class="navbar-brand" href="/">LUXSHOP</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">   
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">
+        <li><a href="/shopping-cart">
           <span class="badge">{{ session.cart.totalQty }}</span>
           <i class="fa fa-shopping-cart" aria-hidden="true">  </i> </i>shopping cart</a></li>
         <li class="dropdown">
@@ -28,7 +28,6 @@
             {{ else }}
             <li><a href="/user/signup"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a></li>
             <li><a href="/user/signin"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a></li>
-            
             {{/ if }}
           </ul>
         </li>
