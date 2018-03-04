@@ -8,8 +8,7 @@ var Product = require('../models/product');
 router.use(csrfProtection);
 router.get('/profile', isLoggedIn, function(req, res, next){
     res.render('user/profile', {title: 'Profile'});
-  }); 
- 
+  });
 router.get('/logout',isLoggedIn, function(req, res, next){
     req.logout();
     res.redirect('/');
@@ -44,9 +43,6 @@ router.post('/signin', passport.authenticate('local.signin', {
   failureRedirect : '/user/signin',
   failureFlash : true
 }));
-
-
-
 
 module.exports = router;
 function isLoggedIn(req, res, next){
