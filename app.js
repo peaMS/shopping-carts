@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -17,8 +17,16 @@ var index = require('./routes/index');
 var user = require('./routes/user');
 
 var app = express();
- 
-mongoose.connect('mongodb://test:test@ds143678.mlab.com:43678/shopping');
+//mongoose.connect('mongodb://test:test@ds143678.mlab.com:43678/shopping');
+//pea connect
+const cosmosPort = 10255; // replace with your port
+const dbName = 'luxshop';
+const key = encodeURIComponent('MFmA5UKWx3um77BMOxer9NlXcqBMetW7wBuNdcmchG9UEAxKvMFMQ1doB738JSqFKXvf1EGObhe7UyfRHW7Ejg==');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const mongoUri = `mongodb://${dbName}:${key}@${dbName}.documents.azure.com:${cosmosPort}/?ssl=true`;
+mongoose.connect(mongoUri);
+//pea connect END
 
 require('./config/passport');
 
@@ -34,11 +42,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use(cookieParser());
 app.use(session({
-  secret: 'secretm', 
-  resave : false, 
+  secret: 'secretm',
+  resave : false,
   saveUninitialized : false,
   store: new mongoStore({ mongooseConnection: mongoose.connection}),
-  cookie: {maxAge: 60 * 60 * 1000},  
+  cookie: {maxAge: 60 * 60 * 1000},
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -50,7 +58,7 @@ app.use(function(req, res, next){
   res.locals.session = req.session;
   next();
 });
-app.use('/user', user);   
+app.use('/user', user);
 app.use('/', index);
 
 
