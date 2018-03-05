@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     for(var i = 0; i < doc.length; i += rowLength){
       productRows.push(doc.slice(i, i + rowLength));
     }
-    res.render('shop/index', { title: 'My Shop', products : productRows });
+    res.render('shop/index', { title: 'Lux Shop', products : productRows });
   });
 });
 
