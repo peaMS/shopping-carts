@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Cart = require('../models/cart');
 var Product = require('../models/product');
+var network = require('net');
+/*retrieve hostname of instance */
+var os = require('os');
+var hostname = os.hostname();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,10 +16,9 @@ router.get('/', function(req, res, next) {
     for(var i = 0; i < doc.length; i += rowLength){
       productRows.push(doc.slice(i, i + rowLength));
     }
-    res.render('shop/index', { title: 'Lux Shop', products : productRows });
+    res.render('shop/index', { title: 'Lux shop ',hostname: hostname, products : productRows });
   });
 });
-
 router.get('/add-to-cart/:id', function(req, res, next){
   var productId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -23,7 +26,6 @@ router.get('/add-to-cart/:id', function(req, res, next){
   Product.findById(productId, function(err, product){
      if(err){
        return res.redirect('/');
-       console.log('errore prodotto riga 26');
      }
      cart.add(product, product.id);
      req.session.cart = cart;
